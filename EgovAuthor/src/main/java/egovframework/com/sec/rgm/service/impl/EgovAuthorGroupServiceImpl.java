@@ -168,6 +168,31 @@ public class EgovAuthorGroupServiceImpl extends EgovAbstractServiceImpl implemen
         repository.deleteById(scrtyDtrmnTrgetId);
     }
 
+    @Transactional
+    @Override
+    public void insertOrUpdateList(String[] userIds, String[] mberTyCodes, String[] authorCodes, String[] regYns, AuthorGroupVO authorGroupVO) {
+        for (int i = 0; i < userIds.length; i++) {
+            authorGroupVO.setScrtyDtrmnTrgetId(userIds[i]);
+            authorGroupVO.setMberTyCode(mberTyCodes[i]);
+            authorGroupVO.setAuthorCode(authorCodes[i]);
+
+            if ("N".equals(regYns[i])) {
+                this.insert(authorGroupVO);
+            } else {
+                this.update(authorGroupVO);
+            }
+        }
+    }
+
+    @Transactional
+    @Override
+    public void deleteList(String[] userIds, AuthorGroupVO authorGroupVO, Map<String, String> userInfo) {
+        for (String userId : userIds) {
+            authorGroupVO.setScrtyDtrmnTrgetId(userId);
+            this.delete(authorGroupVO, userInfo);
+        }
+    }
+
     private void requireAuthenticated(Map<String, String> userInfo) {
         if (userInfo == null || ObjectUtils.isEmpty(userInfo.get("uniqId"))) {
             throw new IllegalStateException("인증 정보가 없습니다.");
