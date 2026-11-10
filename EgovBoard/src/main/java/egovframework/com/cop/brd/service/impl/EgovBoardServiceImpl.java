@@ -16,7 +16,7 @@ import egovframework.com.cop.brd.service.*;
 import egovframework.com.cop.brd.util.EgovBoardUtility;
 import egovframework.com.cop.brd.util.EgovFileUtility;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import org.egovframe.rte.fdl.cmmn.exception.FdlException;
 import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;

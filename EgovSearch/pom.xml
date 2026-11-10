@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>egovframework</groupId>
     <artifactId>EgovSearch</artifactId>
-    <version>5.0.4</version>
+    <version>5.1.0</version>
     <name>EgovSearch</name>
     <url>https://www.egovframe.go.kr</url>
 
@@ -19,24 +19,16 @@
     <parent>
         <groupId>org.egovframe.boot</groupId>
         <artifactId>egovframe-boot-starter-parent</artifactId>
-        <version>5.0.1</version>
+        <version>5.1.0</version>
         <relativePath/>
     </parent>
 
     <properties>
         <java.version>17</java.version>
-        <mysql.connector.version>8.4.0</mysql.connector.version>
-        <commons-lang3.version>3.14.0</commons-lang3.version>
-        <commons-io.version>2.16.1</commons-io.version>
-        <commons-text.version>1.12.0</commons-text.version>
+        <commons-io.version>2.20.0</commons-io.version>
+        <commons-text.version>1.14.0</commons-text.version>
         <opensearch.client.java>2.8.1</opensearch.client.java>
-        <httpclient5.version>5.4.3</httpclient5.version>
-        <httpcore5.version>5.3.4</httpcore5.version>
-        <com.fasterxml.jackson.datatype.version>2.13.5</com.fasterxml.jackson.datatype.version>
-        <jakarta.json.api.version>2.1.0</jakarta.json.api.version>
         <net.sourceforge.ajaxtags.resources.version>1.5.7</net.sourceforge.ajaxtags.resources.version>
-        <springdoc.openapi.ui>2.8.5</springdoc.openapi.ui>
-        <apache.maven.compiler.plugin>3.8.1</apache.maven.compiler.plugin>
     </properties>
 
     <repositories>
@@ -105,12 +97,10 @@
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
-            <version>${mysql.connector.version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
         <!-- 표준프레임워크 실행환경 -->
@@ -147,7 +137,6 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>${commons-lang3.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
@@ -174,32 +163,26 @@
         <dependency>
             <groupId>org.apache.httpcomponents.client5</groupId>
             <artifactId>httpclient5</artifactId>
-            <version>${httpclient5.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents.core5</groupId>
             <artifactId>httpcore5</artifactId>
-            <version>${httpcore5.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents.core5</groupId>
             <artifactId>httpcore5-h2</artifactId>
-            <version>${httpcore5.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents.core5</groupId>
             <artifactId>httpcore5-reactive</artifactId>
-            <version>${httpcore5.version}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
-            <version>${com.fasterxml.jackson.datatype.version}</version>
         </dependency>
         <dependency>
             <groupId>jakarta.json</groupId>
             <artifactId>jakarta.json-api</artifactId>
-            <version>${jakarta.json.api.version}</version>
         </dependency>
         <dependency>
             <groupId>net.sourceforge.ajaxtags</groupId>
@@ -223,7 +206,6 @@
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>${springdoc.openapi.ui}</version>
         </dependency>
         <!-- Spring Cloud Stream RabbitMQ Binder -->
         <dependency>
@@ -261,11 +243,8 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${apache.maven.compiler.plugin}</version>
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                    <release>${java.version}</release>
+                    <release>${maven.compiler.release}</release>
                 </configuration>
             </plugin>
         </plugins>
