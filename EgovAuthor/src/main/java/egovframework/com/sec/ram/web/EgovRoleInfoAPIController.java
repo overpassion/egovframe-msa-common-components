@@ -84,7 +84,7 @@ public class EgovRoleInfoAPIController {
         Map<String, Object> response = new HashMap<>();
         if (!ObjectUtils.isEmpty(result)) {
             webClientBuilder.build().post()
-                    .uri("lb://EGOVLOGIN/uat/uia/reload")
+                    .uri("http://EGOVLOGIN/uat/uia/reload")
                     .retrieve()
                     .bodyToMono(String.class)
                     .block();

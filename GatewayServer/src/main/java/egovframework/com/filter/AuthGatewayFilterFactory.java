@@ -70,7 +70,7 @@ public class AuthGatewayFilterFactory extends AbstractGatewayFilterFactory<AuthG
 
                 log.debug("##### AuthGatewayFilterFactory validating refresh token...");
                 return webClientBuilder.build().get()
-                        .uri("lb://EGOVLOGIN/uat/uia/validateRefreshToken")
+                        .uri("http://EGOVLOGIN/uat/uia/validateRefreshToken")
                         .header("refreshToken", refreshToken)
                         .retrieve()
                         .bodyToMono(Boolean.class)
@@ -103,7 +103,7 @@ public class AuthGatewayFilterFactory extends AbstractGatewayFilterFactory<AuthG
 
     private Mono<Void> regenerateAccessToken(ServerWebExchange exchange, String refreshToken, GatewayFilterChain chain) {
         return webClientBuilder.build().get()
-                .uri("lb://EGOVLOGIN/uat/uia/recreateAccessToken")
+                .uri("http://EGOVLOGIN/uat/uia/recreateAccessToken")
                 .header("refreshToken", refreshToken)
                 .retrieve()
                 .bodyToMono(Map.class)
