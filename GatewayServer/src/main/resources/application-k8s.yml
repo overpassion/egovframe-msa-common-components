@@ -1,0 +1,82 @@
+# Kubernetes 프로파일(SPRING_PROFILES_ACTIVE=k8s)
+# - Config Server·Eureka 없이 기동한다. 설정은 ConfigMap·Secret 환경 변수로 받는다.
+# - 라우트의 lb://<서비스ID>는 Eureka 대신 아래 정적 인스턴스(egov-app Service 주소)로 해석된다.
+#   spring.cloud.discovery.enabled=false면 SimpleDiscoveryClient와 LoadBalancer 인스턴스 공급자가 모두 꺼져
+#   lb:// 해석이 실패하므로 Gateway는 discovery를 켠 채 Eureka만 끈다.
+# - 비루트 실행을 위해 서비스 포트 8080, 프로브는 관리 포트 8081을 쓴다.
+server:
+  port: 8080
+
+spring:
+  cloud:
+    config:
+      enabled: false
+    discovery:
+      enabled: true
+      client:
+        simple:
+          instances:
+            "[GATEWAYSERVER]":
+              - uri: http://gateway-server.egov-infra.svc.cluster.local:9000
+            "[EGOVMAIN]":
+              - uri: http://egov-main.egov-app.svc.cluster.local:80
+            "[EGOVLOGIN]":
+              - uri: http://egov-login.egov-app.svc.cluster.local:80
+            "[EGOVLOGINPOLICY]":
+              - uri: http://egov-loginpolicy.egov-app.svc.cluster.local:80
+            "[EGOVAUTHOR]":
+              - uri: http://egov-author.egov-app.svc.cluster.local:80
+            "[EGOVBOARD]":
+              - uri: http://egov-board.egov-app.svc.cluster.local:80
+            "[EGOVQUESTIONNAIRE]":
+              - uri: http://egov-questionnaire.egov-app.svc.cluster.local:80
+            "[EGOVCMMNCODE]":
+              - uri: http://egov-cmmncode.egov-app.svc.cluster.local:80
+            "[EGOVSEARCH]":
+              - uri: http://egov-search.egov-app.svc.cluster.local:80
+    gateway:
+      server:
+        webflux:
+          globalcors:
+            cors-configurations:
+              '[/**]':
+                allowed-origins: ${APIGATEWAY_ALLOWED_ORIGIN:http://localhost:9000}
+
+eureka:
+  client:
+    enabled: false
+    register-with-eureka: false
+    fetch-registry: false
+
+management:
+  server:
+    port: 8081
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      show-details: never
+  endpoints:
+    web:
+      exposure:
+        include: health, info
+
+logging:
+  level:
+    org:
+      egovframe:
+        rte: info
+      springframework:
+        boot:
+          autoconfigure: error
+        web: info
+    egovframework:
+      com: info
+      rte: info
+
+org:
+  egovframe:
+    crypto:
+      algorithm: SHA-256
+      algorithmKey: ${EGOV_CRYPTO_ALGORITHM_KEY:egovframe}
+      algorithmKeyHash: ${EGOV_CRYPTO_ALGORITHM_KEY_HASH:gdyYs/IZqY86VcWhT8emCYfqY1ahw2vtLG+/FzNqtrQ=}
